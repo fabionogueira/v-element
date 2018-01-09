@@ -1,0 +1,53 @@
+/* ui-combobox/index.scss */
+
+.ui-combobox {
+    display: flex;
+    position: relative;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    white-space: nowrap;
+    height: 24px;
+}
+.ui-combobox-input{
+    height: 100%;
+    border: none;
+    flex:1;
+    padding: 0 6px;
+}
+.ui-combobox-button{
+    height: 100%;
+    width: 22px;
+    cursor: pointer;
+}
+.ui-combobox-button:active{
+    background: #f7f7f7;
+}
+.ui-combobox-button:active svg{
+    fill: #b7b7b7;
+}
+.ui-combobox-options{
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    border:solid 1px #eee;
+    box-shadow: 0px 4px 6px rgba(123, 123, 123, 0.51);
+    font-size: 13px;
+    min-height: 24px;
+}
+.ui-combobox-options option{
+    padding:5px 6px;
+}
+.ui-combobox-options option:hover{
+    background: #c2ddf2;
+}
+.ui-combobox-options-show{
+    display: inherit;
+}
+.ui-combobox-button svg{
+    width: 22px;
+    height: 22px;
+    fill: #848484;
+}
+
+@import './ui-tabs.material.scss';
+@import './ui-tabs.ios.scss';

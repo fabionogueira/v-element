@@ -1,0 +1,48 @@
+/* ui-tabs/index.scss */
+
+.ui-tabs{
+    display:flex;
+    align-items:stretch;
+    flex-direction:column;
+}
+.ui-tabs-header{
+    position: relative;
+    z-index: 1;
+    display:flex;
+    align-items:stretch;
+    flex-direction:row;
+}
+.ui-tab{
+    position: relative;
+    border: solid 1px #c0c0c0;
+    border-bottom: none;
+    padding: 5px 6px;
+    margin: 0 2px;
+    cursor: pointer;
+}
+.ui-tab-active{
+    border-bottom: none;
+}
+.ui-tab-active::after{
+    content: '';
+    display: block;
+    background: white;
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    left: 0;
+    bottom: -2px;
+}
+.ui-tab-content{
+    position: relative;
+    flex: 1;
+    border: solid 1px #c0c0c0;
+    padding: 4px;
+}
+.ui-tab-last{
+    flex: 1;
+    border-bottom: solid 1px #c0c0c0;
+}
+
+@import './ui-tabs.material.scss';
+@import './ui-tabs.ios.scss';

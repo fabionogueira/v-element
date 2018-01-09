@@ -1,0 +1,17 @@
+/* Animação default, todos com au-animate */
+.au-add {opacity: 0!important;}
+.au-add-active {-webkit-animation:fadeIn 1s; animation:fadeIn 1s;}
+.au-leave-active {-webkit-animation:fadeOut .5s; animation:fadeOut .5s;}
+
+@keyframes fadeIn{
+    0% {opacity:0}
+    100% {opacity:1}
+}
+
+.page-animation-enter-active, .page-animation-leave-active{
+    transition: opacity .4s, transform .4s;
+} 
+.page-animation-enter, .page-animation-leave-to {
+    opacity: 0;
+    transform: translateX(-30%);
+}

@@ -1,0 +1,40 @@
+.v-button {
+    display: flex;
+    white-space: nowrap;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid #dcdfe6;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-weight: 500;
+    -webkit-appearance: none;
+}
+
+.v-button:focus, .v-button:hover {
+    color: #409eff;
+    border-color: #c6e2ff;
+    background-color: #ecf5ff;
+}
+
+.v-button:active {
+    color: #3a8ee6;
+    border-color: #3a8ee6;
+}
+
+.v-button .icon-svg{
+    width: 16px;
+    height: 16px;
+}
+
+.v-button-icon-left{
+    margin-right: 8px;
+}
+.v-button-icon-right{
+    margin-left: 8px;
+}
+.v-button-icon-menu{
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    margin-right: -10px;
+}

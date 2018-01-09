@@ -1,0 +1,16 @@
+ui-panel{
+    @extend .vbox;
+    border-style: solid;
+}
+ui-panel-header{
+    @extend .hbox;
+    align-items:center;
+    border-style: none none solid none;
+    background: #f5f5f5;
+    padding: 5px;
+    font-weight: bold;
+}
+ui-panel-body{
+    height: 100%;
+    padding: 4px;
+}

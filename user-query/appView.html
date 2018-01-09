@@ -1,0 +1,29 @@
+<vbox class="client">
+    <!-- header -->
+    <dri-header title="User Query" />
+
+    <!-- toolbar -->
+    <ui-toolbar>
+        <ui-button title="New" action="showPopup:popup-new:left|bottom"><icon name="icon-file-plus"></icon></ui-button>
+        <ui-button title="Open"><icon name="icon-folder-open"></icon></ui-button>
+        <separator />
+        <ui-button title="Delete" style="fill:#820404;"><icon name="icon-delete"></icon></ui-button>
+        <ui-button title="Clear"><icon name="icon-broom"></icon></ui-button>
+        <separator />
+        <ui-button title="Save"><icon name="icon-content-save"></icon></ui-button>
+        <ui-button title="Save As"><icon name="icon-content-save-all"></icon></ui-button>
+    </ui-toolbar>
+
+    <!-- content -->
+    <div class="client"></div>
+
+    <!-- footer -->
+    <dri-footer />
+
+    <!-- popup new query -->
+    <ui-panel class="popup" name="popup-new">
+        <ui-panel-header>
+            New Query
+        </ui-panel-header>
+    </ui-panel>
+</vbox>

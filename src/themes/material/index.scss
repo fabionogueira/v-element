@@ -1,0 +1,10 @@
+/*#theme=material*/
+
+$primary-color: blue;
+
+@import '../base';
+@import '../layout';
+@import '../animations';
+
+@import '../../elements/ui-button/ui-button.material';
+@import '../../elements/ui-button/ui-panel.material';

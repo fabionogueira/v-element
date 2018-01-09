@@ -1,0 +1,13 @@
+.dri-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #24292e;
+    color: #fff;
+    fill: #fff;
+    padding: 4px;
+}
+.dri-footer-title{
+    font-size: 12px;
+}

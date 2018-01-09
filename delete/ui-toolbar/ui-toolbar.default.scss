@@ -1,0 +1,23 @@
+/* ui-toolbar.default.scss */
+
+.ui-toolbar{
+    display: flex;
+    min-height: 24px;
+    padding: 6px 0 6px 8px;
+    border: solid 1px #cfcfcf;
+    border-style: none none solid none;
+    background-color: #fff;
+}
+
+.ui-toolbar>.ui-element{
+    margin-right: 4px;
+}
+
+.ui-toolbar>separator{
+    margin: 3px 7px 3px 3px;
+    display:block;
+    border-style: solid;
+    border-width: 0 0 0 1px;
+    border-left-color: #e1e1e1;
+    border-right-color: #fff;
+}

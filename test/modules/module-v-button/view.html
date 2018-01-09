@@ -1,0 +1,66 @@
+<div>
+    <demo-container data-title="basic">
+        <script type="text/code">
+            <div class="demo-v-button-container">
+                <v-button>default</v-button>
+                <v-button class="v-button--primary">primary</v-button>
+                <v-button class="v-button--success">success</v-button> 
+                <v-button class="v-button--info">info</v-button> 
+                <v-button class="v-button--warning">warn</v-button> 
+                <v-button class="v-button--danger">danger</v-button> 
+            </div>
+        </script>
+    </demo-container>
+
+    <demo-container data-title="disabled">
+        <script type="text/code">    
+            <div class="demo-v-button-container">
+                <v-button disabled>default</v-button>
+                <v-button disabled class="v-button--primary">primary</v-button>
+                <v-button disabled class="v-button--success">success <icon name="icon-content-save"></icon></v-button> 
+                <v-button disabled class="v-button--info"><icon name="icon-content-save"></icon> info</v-button> 
+                <v-button disabled class="v-button--warning">warn</v-button> 
+                <v-button disabled class="v-button--danger">danger</v-button>
+            </div>
+        </script>
+    </demo-container>
+
+    <demo-container data-title="with icon">
+        <script type="text/code">
+            <div class="demo-v-button-container">
+                <v-button>default <icon name="icon-content-save"></icon></v-button>
+                <v-button class="v-button--primary"><icon name="icon-content-save"></icon></v-button>
+                <v-button class="v-button--success" menu="menu-name">
+                    <icon name="icon-content-save"></icon>
+                    success
+                </v-button> 
+                <v-button class="v-button--info">
+                    <icon name="icon-content-save"></icon>
+                    info
+                </v-button> 
+                <v-button class="v-button--warning">
+                    <div>
+                        <icon name="icon-content-save"></icon>
+                        <div>warning</div>
+                    </div>
+                </v-button> 
+                <v-button class="v-button--danger">
+                    <div>
+                        <div>danger</div>
+                        <icon name="icon-content-save"></icon>
+                    </div>
+                </v-button> 
+            </div>
+        </script>
+    </demo-container>
+
+    <demo-container data-title="plain">
+        <script type="text/code">
+            <div class="demo-v-button-container">
+                <v-button plain>plain</v-button>
+                <v-button plain><icon name="icon-content-save"></icon>plain</v-button>
+                <v-button disabled plain>plain</v-button>
+            </div>
+        </script>
+    </demo-container>
+</div>

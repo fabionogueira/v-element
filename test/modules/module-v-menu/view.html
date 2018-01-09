@@ -1,0 +1,38 @@
+<div>
+    <demo-container data-title="basic" style="position: absolute; left:10px; right:10px; bottom:10px; top:10px; margin:0">
+        
+        <v-button action="menu:menu1" style="position:absolute;top:40px;left:10px">show menu</v-button>
+        <v-button action="menu:menu2" style="position:absolute;top:40px;right:10px">show menu</v-button>
+        <v-button action="menu:menu3" style="position:absolute;bottom:20px;left:10px">show menu</v-button>
+        <v-button action="menu:menu1" style="position:absolute;bottom:20px;right:10px">show menu</v-button>
+
+        <v-menu name="menu1" @item-click="itemClicked()">
+            <v-menu-item>Item 01</v-menu-item>
+            <v-menu-item disabled>Item 02 (disabled)</v-menu-item>
+            <v-menu-item>
+                <icon name="icon-content-save"></icon>
+                Item 03 (with icon)
+            </v-menu-item>
+            <v-menu-item-separator></v-menu-item-separator>
+            <v-menu-item child-menu="menu2">Item 04</v-menu-item>
+            <v-menu-item value="5">Item 05</v-menu-item>
+        </v-menu>
+
+        <v-menu name="menu2">
+            <v-menu-item child-menu="menu3">Submenu Item 01</v-menu-item>
+            <v-menu-item>Submenu Item 02</v-menu-item>
+            <v-menu-item>Submenu Item 03</v-menu-item>
+            <v-menu-item>Submenu Item 04</v-menu-item>
+            <v-menu-item>Submenu Item 05</v-menu-item>
+            <v-menu-item>Submenu Item 06</v-menu-item>
+            <v-menu-item>Submenu Item 07</v-menu-item>
+        </v-menu>
+
+        <v-menu name="menu3">
+            <v-menu-item>Level 3 Item 01</v-menu-item>
+            <v-menu-item>Level 3 Item 02</v-menu-item>
+            <v-menu-item>Level 3 Item 03</v-menu-item>
+        </v-menu>
+        
+    </demo-container>
+</div>

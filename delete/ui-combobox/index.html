@@ -1,0 +1,10 @@
+<div class="ui-element ui-combobox">
+    <input type="hidden" />
+    <input type="text" class="ui-combobox-input" />
+    <div class="ui-combobox-button" @click="onButtonClick">
+        <svg version="1.1"><use xlink:href="#web_icon-arrow_down"></use></svg>
+    </div>
+    <div class="ui-combobox-options" @click="onOptionClick">
+        <slot/>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.demo-container {
+    border: solid 1px #dcdfe6;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 30px;
+}
+.demo-container .demo-title{
+    color: #1f2f3d;
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 10px;
+}
+.demo-container .demo-description{
+    font-size: 14px;
+    color: #5e6d82;
+    padding-bottom: 10px;
+}
+.demo-container .demo-content{
+    padding:10px;
+    min-height: 25px;
+}

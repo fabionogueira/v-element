@@ -1,0 +1,138 @@
+
+.v-button.themable {
+    &:focus, &:hover {
+        color: $color-font-focus;
+        border-color: $color-border-focus;
+        background-color: $color-face-focus;
+    }
+    &:active {
+        color: $color-font-active;
+        border-color: $color-border-active;
+    }
+
+    &.v-button--primary {
+        color: $color-primary-reverse;
+        background-color: $color-primary;
+        border-color: $color-primary;
+        &:focus, &:hover{
+            color: $color-primary-reverse;
+            background: $color-primary-focus;
+            border-color: $color-primary-focus;
+        }
+        &:active{
+            color: $color-primary-reverse;
+            background: $color-primary-active;
+            border-color: $color-primary-active;
+        }
+        & svg{
+            fill: $color-primary-reverse;
+        }
+    }
+
+    &.v-button--success {
+        color: $color-success-reverse;
+        background-color: $color-success;
+        border-color: $color-success;
+        &:focus, &:hover{
+            color: $color-success-reverse;
+            background: $color-success-focus;
+            border-color: $color-success-focus;
+        }
+        &:active{
+            color: $color-success-reverse;
+            background: $color-success-active;
+            border-color: $color-success-active;
+        }
+        & svg{
+            fill: $color-success-reverse;
+        }
+    }
+
+    &.v-button--info {
+        color: $color-info-reverse;
+        background-color: $color-info;
+        border-color: $color-info;
+        &:focus, &:hover{
+            color: $color-info-reverse;
+            background: $color-info-focus;
+            border-color: $color-info-focus;
+        }
+        &:active{
+            color: $color-info-reverse;
+            background: $color-info-active;
+            border-color: $color-info-active;
+        }
+        & svg{
+            fill: $color-info-reverse;
+        }
+    }
+
+    &.v-button--warning {
+        color: $color-warning-reverse;
+        background-color: $color-warning;
+        border-color: $color-warning;
+        &:focus, &:hover{
+            color: $color-warning-reverse;
+            background: $color-warning-focus;
+            border-color: $color-warning-focus;
+        }
+        &:active{
+            color: $color-warning-reverse;
+            background: $color-warning-active;
+            border-color: $color-warning-active;
+        }
+        & svg{
+            fill: $color-warning-reverse;
+        }
+    }
+
+    &.v-button--danger {
+        color: $color-danger-reverse;
+        background-color: $color-danger;
+        border-color: $color-danger;
+        &:focus, &:hover{
+            color: $color-danger-reverse;
+            background: $color-danger-focus;
+            border-color: $color-danger-focus;
+        }
+        &:active{
+            color: $color-danger-reverse;
+            background: $color-danger-active;
+            border-color: $color-danger-active;
+        }
+        & svg{
+            fill: $color-danger-reverse;
+        }
+    }
+
+    &[disabled], &[disabled]:focus, &[disabled]:hover{
+        color: #bbbbbb!important;
+        background: #eaeaea;
+        border-color: #bbbbbb;
+        cursor: not-allowed!important;
+        & svg{
+            fill: #bbbbbb!important;
+        }
+    }
+
+    &[plain] {
+        color: $color-primary;
+        border-color: transparent;
+        background: transparent;
+        padding-left: 0;
+        padding-right: 0;
+        &:focus, &:hover{
+            color: $color-primary-focus;
+            background: transparent;
+            border-color: transparent;
+        }
+        &:active{
+            color: $color-primary-active;
+            background: transparent;
+            border-color: transparent;
+        }
+        & svg{
+            fill: $color-primary;
+        }
+    }
+}
