@@ -13,6 +13,7 @@ import '@/themes/default';
 // importação do tema e dos componentes que serão usados na aplicação
 import '@/elements/v-button';
 import '@/elements/v-menu';
+import '@/elements/v-dialog';
 
 import './elements/demo-container';
 // import theme from './ui-vue/themes/default'

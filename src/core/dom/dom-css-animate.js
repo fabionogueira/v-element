@@ -90,6 +90,11 @@ const Animator = {
  */
 DOM.prototype.animate = function (transition, cls, options) {
     options = options || {};
+    if (typeof (options) == 'function'){
+        options = {
+            complete: options
+        }
+    }
 
     return this.each(function (element) {
         if (transition == 'enter'){

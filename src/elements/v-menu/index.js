@@ -121,7 +121,6 @@ Vue.component('v-menu', {
             }
 
             // exibe
-            this._onHide = options.onHide;
             PopupManager.show(this.$el, {
                 cancelClose: true,
                 modal: true, // fecha com click fora do popup
@@ -131,7 +130,8 @@ Vue.component('v-menu', {
                 },
                 offsetY: options.offsetY || 0,
                 offsetX: options.offsetX || 0,
-                animateCls: 'fade'
+                animateCls: 'fade',
+                onHide: options.onHide
             });
         },
         hide(){
@@ -157,12 +157,6 @@ Vue.component('v-menu', {
             });
 
             PopupManager.hide(this.$el);
-
-            if (this._onHide){
-                this._onHide();
-            }
-
-            this._onHide = null;
         }
     }
     

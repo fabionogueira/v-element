@@ -3,7 +3,7 @@ import Action from './action';
 import DOM from './dom';
 
 let showInProgress = false;
-let popupZIndex = 3000;
+// let popupZIndex = 3000;
 let activePopups = [];
 let popupIndex = 0;
 let DEFAULT_OPTIONS = {
@@ -75,7 +75,7 @@ const PopupManager = {
         }
         
         // adiciona no final do body
-        element.style.zIndex = popupZIndex++;
+        // element.style.zIndex = popupZIndex++;
         if (options.beforeAppend){
             options.beforeAppend(element);
         } else {
@@ -119,6 +119,9 @@ const PopupManager = {
 
         element.removeAttribute('is-popup');
 
+        if (options.onHide) options.onHide(element);
+        if (options.onBeforeHide) options.onBeforeHide(element);
+
         if (options.display){
             options.display('hide', element);
         } else if (options.animateCls) {
@@ -127,7 +130,6 @@ const PopupManager = {
             });
         } else {
             element.style.display = 'none';
-            if (options.onHide) options.onHide();
         }
 
     }

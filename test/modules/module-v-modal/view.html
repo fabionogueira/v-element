@@ -1,0 +1,13 @@
+<div>
+    <demo-container data-title="basic">
+        
+        <v-button action="modal:modal1">show modal</v-button>
+
+        <v-dialog name="modal1" @show="onShow()">
+            <v-dialog-header>
+                Simple Dialog
+            </v-dialog-header>
+        </v-dialog>
+
+    </demo-container>
+</div>
