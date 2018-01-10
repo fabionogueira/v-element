@@ -47,6 +47,10 @@ const PopupManager = {
 
         element.setAttribute('is-popup', '');
         
+        if (element._display === undefined){
+            element._display = window.getComputedStyle(element).getPropertyValue('display');
+        }
+        
         // adiciona o elemento na lista de popups ativos
         activePopups.push(element);
 
@@ -82,6 +86,8 @@ const PopupManager = {
             document.body.appendChild(element);
         }
 
+        element.style.display = 'block';
+        
         if (options.display) {
             options.display('show', element);
         } else if (options.animateCls) {
@@ -89,7 +95,6 @@ const PopupManager = {
                 complete: options.onShow
             });
         } else {
-            element.style.display = 'block';
             if (options.onShow) options.onShow();
         }
 
@@ -122,14 +127,14 @@ const PopupManager = {
         if (options.onHide) options.onHide(element);
         if (options.onBeforeHide) options.onBeforeHide(element);
 
+        element.style.display = element._display;
+
         if (options.display){
             options.display('hide', element);
         } else if (options.animateCls) {
             DOM(element).animate('leave', options.animateCls, {
                 complete: options.onHide
             });
-        } else {
-            element.style.display = 'none';
         }
 
     }

@@ -4,7 +4,7 @@ import match from './dom-selector';
 DOM.prototype.closest = function (selector) {
     let el = this[0];
 
-    while (el && el != document.body){
+    while (el && el != document){
         if (match(el, selector)){
             return el;
         }

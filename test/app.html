@@ -1,42 +1,9 @@
 <v-vbox id="app">
     <p style="padding: 0 15px;">
-      <a href="#v-modal">v-modal</a> | 
-      <a href="#v-menu">v-menu</a> | 
-      <a href="#v-button">v-button</a>
+      <router-link to="/v-dialog">v-dialog</router-link> | 
+      <router-link to="/v-menu">v-menu</router-link> | 
+      <router-link to="/v-button">v-button</router-link>
     </p>
 
     <router-view style="flex:1;position:relative;"></router-view>
-    
-<!--
-  <ui-panel style="margin-right:6px" v-if="state.auth">
-    <ui-panel-header>
-      <img style="width:16px;margin-right:10px" src="./static/images/logo.png"> components
-    </ui-panel-header>
-    <ui-panel-body>
-      <p><a href="#/module-buttons">ui-button</a></p>
-      <p><a href="#/module-combobox">ui-combobox</a></p>
-    </ui-panel-body>
-  </ui-panel>
-
-  <ui-panel class="client" v-if="state.auth">
-    <ui-panel-header>{{state.title}}</ui-panel-header>
-    <ui-panel-body>
-      <ui-tabs style="height:100%">
-        <ui-tab caption="view" class="view-container">
-          <transition name="page-animation">
-            <router-view></router-view>
-          </transition>
-        </ui-tab>
-        <ui-tab caption="html">
-          <ui-highlight lang="html" :code="state.htmlCode"></ui-highlight>
-        </ui-tab>
-        <ui-tab caption="js">
-          <ui-highlight lang="javascript" :code="state.jsCode"></ui-highlight>
-        </ui-tab>
-      </ui-tabs>
-    </ui-panel-body>
-  </ui-panel>
--->
-
-    <!-- <module-login ref="login"></module-login> -->
 </v-vbox>

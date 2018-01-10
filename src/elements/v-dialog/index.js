@@ -20,7 +20,7 @@ const DEFAULT_OPTIONS = {
 if (!theme.iconIsRegistered(dialogCloseIconName)){
     iconManager.register(dialogCloseIconName, {
         viewBox: '0 0 24 24',
-        content: '<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />'
+        content: '<path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />'
     });
 }
 
@@ -35,7 +35,6 @@ function getVueMenuInstance(value){
 Vue.component('v-dialog', {
     template: `<div class="v-element v-vbox v-dialog themable">
                     <slot></slot>
-                    <div class="v-dialog-close-button"></div>
                </div>`,
     
     destroyed(){
@@ -61,7 +60,7 @@ Vue.component('v-dialog', {
 
             if (!this.__init){
                 this.__init = true;
-                this.$el.querySelector('.v-dialog-close-button').appendChild(iconManager.svg(dialogCloseIconName, 'v-dialog-close-button'));
+                this.$el.appendChild(iconManager.svg(dialogCloseIconName, 'v-dialog-close-button'));
                 this.$el.modalbg = document.createElement('div');
                 this.$el.modalbg.setAttribute('class', 'v-dialog-modal-background');
             }

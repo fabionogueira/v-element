@@ -11,6 +11,29 @@
     z-index: 5000;
 }
 
+.v-dialog-close-button{
+    display: none;
+    background: white;
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    fill: #969696;
+}
+.v-dialog-close-button .icon-svg{
+    width: 16px;
+    height: 16px;
+}
+.v-dialog-close-button:hover .icon-svg{
+    fill: #2f2f2f;
+}
+
+.v-dialog-with-close-button .v-dialog-close-button{
+    display: block;
+}
+
 v-dialog-header{
     display: flex;
     margin-top: -10px;
@@ -19,5 +42,10 @@ v-dialog-header{
     padding: 0 10px;
     font-size: 15px;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
 }
-  
+
+.v-dialog-with-close-button v-dialog-header{
+    padding-right: 24px;
+}

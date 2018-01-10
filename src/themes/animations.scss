@@ -1,3 +1,14 @@
+.fade-enter{
+    opacity: 0;  
+    transition: opacity .4s;
+}
+.fade-enter-to{
+    opacity: 1;
+}
+.fade-leave-to{
+    opacity: 0;
+}
+
 /* Animação default, todos com au-animate */
 .au-add {opacity: 0!important;}
 .au-add-active {-webkit-animation:fadeIn 1s; animation:fadeIn 1s;}
