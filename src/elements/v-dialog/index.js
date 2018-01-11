@@ -34,6 +34,7 @@ function getVueMenuInstance(value){
 
 Vue.component('v-dialog', {
     template: `<div class="v-element v-vbox v-dialog themable">
+                    <div @click="hide()"></div>
                     <slot></slot>
                </div>`,
     
@@ -60,7 +61,7 @@ Vue.component('v-dialog', {
 
             if (!this.__init){
                 this.__init = true;
-                this.$el.appendChild(iconManager.svg(dialogCloseIconName, 'v-dialog-close-button'));
+                this.$el.children[0].appendChild(iconManager.svg(dialogCloseIconName, 'v-dialog-close-button'));
                 this.$el.modalbg = document.createElement('div');
                 this.$el.modalbg.setAttribute('class', 'v-dialog-modal-background');
             }
@@ -74,11 +75,11 @@ Vue.component('v-dialog', {
                 document.body.appendChild(this.$el.modalbg);
                 DOM(this.$el.modalbg).animate('enter', 'fade');
             }
-
+            
             // exibe
             PopupManager.show(this.$el, {
-                cancelClose: true,
-                modal: true, // fecha com click fora do popup
+                cancelClose: options.autoClose,
+                modal: false, // fecha com click fora do popup
                 rectBase:{
                     target: options.reference,
                     position: options.position || 'in-left|bottom in-right|top'
@@ -88,8 +89,8 @@ Vue.component('v-dialog', {
                 animateCls: 'fade',
                 onHide: options.onHide,
                 onShow: options.onShow,
-                onBeforeHide(element){
-                    DOM(element).animate('leave', 'fade', () => { DOM(element).remove(); });
+                onBeforeHide(element){ 
+                    DOM(element).animate('leave', 'fade');
                 }
             });
         },
@@ -101,12 +102,6 @@ Vue.component('v-dialog', {
             this._show = false;
 
             PopupManager.hide(this.$el);
-
-            if (this._onHide){
-                this._onHide();
-            }
-
-            this._onHide = null;
         }
     }
     
