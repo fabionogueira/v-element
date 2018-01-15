@@ -23,7 +23,19 @@ theme.registerIcon('dialog-close', {
 Vue.component('v-dialog', {
     template: require('./index.html'),
     props:{
-        modal: true
+        closeButton: {
+            default: true,
+            type: Boolean
+        },
+        modal:{
+            default: false,
+            type: Boolean
+        }
+    },
+    data(){
+        return {
+            clsbase: 'v-element v-dialog themable'
+        };
     },
     mounted(){
         let el = this.$el;
@@ -48,17 +60,9 @@ Vue.component('v-dialog', {
 
             options = Object.assign({}, DEFAULT_OPTIONS, options);
 
-            this.$el._show = true;
-
-            // closeButton: exibe/oculta o botão "fechar"
-            this.$el.classList.remove('v-dialog-with-close-button');
-            if (options.closeButton) this.$el.classList.add('v-dialog-with-close-button');
-
-            // modal: exibe/oculta o background modal
-            this.$el.classList.remove('modal');
-            if (options.modal || this.modal){
-                this.$el.classList.add('modal');
-            }
+            this.$el._show = true;            
+            this.closeButton = options.closeButton
+            this.modal = options.modal;
             
             // exibe
             PopupManager.show(this.$el, {
@@ -92,7 +96,7 @@ Vue.component('v-dialog', {
             });
         },
         hide(){
-            if (this.$el._show){
+            if (this.isVisible()){
                 if (this._events.hide){
                     this.$emit('hide', () => {
                         PopupManager.hide(this.$el);

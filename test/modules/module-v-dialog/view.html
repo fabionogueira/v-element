@@ -3,7 +3,7 @@
         
         <v-button action="modal:modal1">show modal</v-button>
 
-        <v-dialog name="modal1" modal="true" @hide="onHide" style="width:400px; height:300px">
+        <v-dialog name="modal1" :modal="false" @hide="onHide" style="width:400px; height:300px">
             <v-dialog-header>
                 Simple Dialog
             </v-dialog-header>

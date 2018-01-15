@@ -58,7 +58,15 @@ const PopupManager = {
 
         if (options.closeBack){
             backbutton.on(options._popupId, () => {
-                this.hide(element);
+                let instance = DOM(element).vue();
+
+                if (instance && typeof (instance.hide) == 'function'){
+                    instance.hide();
+                } else {
+                    this.hide(element);
+                }
+
+                return false;
             });
         }
 
@@ -164,14 +172,19 @@ const PopupManager = {
 
 // Tenta fechar a janela de diálogo ativa caso exista, quando pressionada a tecla ESC
 Action.register('keydown', '*', (event) => {
-    let options, element;
+    let options, element, instance;
 
     if (event.keyCode == 27) {
         element = activePopups[activePopups.length - 1];
         options = element ? element._popup : null;
 
         if (options && options.closeEsc) {
-            return PopupManager.hide(element);
+            instance = DOM(element).vue();
+            if (instance && typeof (instance.hide) == 'function'){
+                instance.hide();
+            } else {
+                PopupManager.hide(element);
+            }
         }
     }
 });
