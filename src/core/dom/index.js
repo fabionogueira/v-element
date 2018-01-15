@@ -6,6 +6,8 @@ import './dom-on';
 import './dom-posref';
 import './dom-rect';
 import './dom-remove';
+import './dom-vue';
+
 import DOM from './dom';
 
 export default DOM;

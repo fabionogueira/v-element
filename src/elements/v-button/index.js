@@ -14,7 +14,10 @@ if (!theme.iconIsRegistered(menuIconName)){
 }
 
 Vue.component('v-button', {
-    template: `<button class="v-element v-button themable"><slot></slot><icon v-if="withMenu" class="v-button-icon-menu" name="${menuIconName}"></icon></button>`,
+    template: `<button @click="$emit('click', $event)" class="v-element v-button themable">
+                    <slot></slot>
+                    <icon v-if="withMenu" class="v-button-icon-menu" name="${menuIconName}"></icon>
+               </button>`,
     data(){
         return {
             withMenu: false

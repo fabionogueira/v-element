@@ -9,6 +9,7 @@ import icon from './core/icon-manager';
 import listeners from './core/listeners';
 import popup from './core/popup-manager';
 import theme from './core/theme';
+import MessageBox from './core/message-box';
 
 import './elements/v-box';
 
@@ -48,3 +49,5 @@ export default {
     popup,
     theme
 };
+
+export {MessageBox};

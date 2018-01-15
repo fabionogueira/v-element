@@ -3,10 +3,17 @@
         
         <v-button action="modal:modal1">show modal</v-button>
 
-        <v-dialog name="modal1" @show="onShow()">
+        <v-dialog name="modal1" modal="true" @hide="onHide" style="width:400px; height:300px">
             <v-dialog-header>
                 Simple Dialog
             </v-dialog-header>
+            <v-dialog-body>
+                This is a message
+            </v-dialog-body>
+            <v-dialog-footer>
+                <v-button action="dialog-close">Cancel</v-button>
+                <v-button action="dialog-close" class="v-button--primary">Confirm</v-button>
+            </v-dialog-footer>
         </v-dialog>
 
     </demo-container>

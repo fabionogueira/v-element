@@ -2,8 +2,16 @@ import DOM from './dom';
 
 const Animator = {
     callEvent(element, cls, options, event){
+        let ctrl = DOM(element).vue();
+
+        event = `on-${event}`;
+        
         if (options[event]){
             options[event](element, cls);
+        }
+
+        if (ctrl) {
+            ctrl.$emit(event);
         }
     },
     addClass(element, cls, options, name){
@@ -11,26 +19,39 @@ const Animator = {
         element.classList.add(`${cls}-${name}`);
         Animator.callEvent(element, cls, options, name);
     },
+
+    // class="cls-[enter|leave]-active cls-[enter|leave]"
     state0(element, cls, options, name, fn){
-        if (element.$$dom_animating_state == name) return;
+        if (element.$$dom_animating) return;
         
-        Animator.addClass(element, cls, options, name);
-        setTimeout(() => { Animator.state1(element, cls, options, `${name}-to`, fn); }, 1);    
+        element.$$dom_animating = true;
+
+        element.classList.add(`${cls}-${name}-active`); // add cls-[enter|leave]-active
+        Animator.addClass(element, cls, options, name); // add cls-[enter|leave]
+        
+        setTimeout(() => { Animator.state1(element, cls, options, name, fn); }, 1);    
     },
+
+    // class="cls-[enter|leave]-active cls-[enter|leave]-to"
     state1(element, cls, options, name, fn){
         let delay;
     
-        if (element.$$dom_animating_state == name) return;
-    
-        Animator.addClass(element, cls, options, name);
+        if (!element.$$dom_animating) return;
+        
+        element.classList.remove(`${cls}-${name}`);    // remove cls-[enter|leave]
+        Animator.addClass(element, cls, options, `${name}-to`);// add cls-[enter|leave]-to
         
         element.$$dom_animating_transitionend = function(){
-            if (element.$$dom_animating_state == name){
-                element.$$dom_animating_state = null;
+            if (element.$$dom_animating){
+                element.$$dom_animating = false;
+                
                 Animator.callEvent(element, cls, options, 'complete');
                 element.removeEventListener('transitionend', element.$$dom_animating_transitionend);
                 delete (element.$$dom_animating_transitionend);
-                fn();
+
+                // remove all cls-[enter|leave]*
+                Animator.clear(element, cls, options);
+                if (fn) fn();
             }
         };
         
@@ -45,12 +66,14 @@ const Animator = {
     clear(element, cls, options){
         element.classList.remove(`${cls}-enter`);
         element.classList.remove(`${cls}-enter-to`);
+        element.classList.remove(`${cls}-enter-active`);
         element.classList.remove(`${cls}-leave`);
         element.classList.remove(`${cls}-leave-to`);
+        element.classList.remove(`${cls}-leave-active`);
 
         element.removeEventListener('transitionend', element.$$dom_animating_transitionend);
 
-        delete (element.$$dom_animating_state);
+        delete (element.$$dom_animating);
         delete (element.$$dom_animating_transitionend);
 
         if (options.cancel){
@@ -60,7 +83,7 @@ const Animator = {
     getElementAnimationDelay(element){
         // REVIEW: deley value cache
         let styl = window.getComputedStyle(element);
-        let delay, prefix;
+        let delay, prefix, max;
     
         if (styl.getPropertyValue('animation-delay')) {
             prefix = '';
@@ -75,8 +98,14 @@ const Animator = {
         delay = styl.getPropertyValue(`${prefix}animation-delay`);
         delay = Number(delay.replace(/[^\d\.]/g, ''));
         if (delay == 0){
-            delay = styl.getPropertyValue(`${prefix}transition-duration`);
-            delay = Number(delay.replace(/[^\d\.]/g, ''));
+            max = 0;
+            styl.getPropertyValue(`${prefix}transition-duration`).split(',').forEach((d) => {
+                delay = Number(d.replace(/[^\d\.]/g, ''));
+                if (max === undefined) max = delay;
+                if (delay > max) max = delay;
+            });
+
+            delay = max;
         }
     
         return (delay * 1000);
@@ -97,15 +126,8 @@ DOM.prototype.animate = function (transition, cls, options) {
     }
 
     return this.each(function (element) {
-        if (transition == 'enter'){
-            Animator.clear(element, cls, options);
-        }
-
-        Animator.state0(element, cls, options, transition, () => {
-            if (transition == 'leave'){
-                Animator.clear(element, cls, {});
-            }
-        });
+        Animator.clear(element, cls, options);
+        Animator.state0(element, cls, options, transition);
         
         return this;
     });

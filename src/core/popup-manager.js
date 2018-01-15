@@ -7,7 +7,9 @@ let showInProgress = false;
 let activePopups = [];
 let popupIndex = 0;
 let DEFAULT_OPTIONS = {
-    cancelClose: true,
+    closeEsc: true,  // fecha ao pressionar esc
+    closeBack: true, // fecha no evento voltar do navegador
+    closeOut: true,  // fecha ao clicar fora do popup
     modal: false,
     parentModal: null
 };
@@ -54,14 +56,17 @@ const PopupManager = {
         // adiciona o elemento na lista de popups ativos
         activePopups.push(element);
 
-        backbutton.on(options._popupId, () => {
-            this.hide(element);
-        });
+        if (options.closeBack){
+            backbutton.on(options._popupId, () => {
+                this.hide(element);
+            });
+        }
 
         // posiciona
         if (options.beforeDisplay){
             options.beforeDisplay(element);
         }
+
         if (options.rectBase && options.rectBase.target) {
             ref = DOM(element).posref({
                 origin: options.rectBase.target,
@@ -80,19 +85,19 @@ const PopupManager = {
         
         // adiciona no final do body
         // element.style.zIndex = popupZIndex++;
-        if (options.beforeAppend){
-            options.beforeAppend(element);
+        if (options.onBeforeShow){
+            options.onBeforeShow(element);
         } else {
-            document.body.appendChild(element);
+            element.style.display = 'block';
         }
 
-        element.style.display = 'block';
+        document.body.appendChild(element);
         
         if (options.display) {
             options.display('show', element);
         } else if (options.animateCls) {
             DOM(element).animate('enter', options.animateCls, {
-                complete: options.onShow
+                'on-complete': options.onShow
             });
         } else {
             if (options.onShow) options.onShow();
@@ -124,17 +129,34 @@ const PopupManager = {
 
         element.removeAttribute('is-popup');
 
-        if (options.onHide) options.onHide(element);
-        if (options.onBeforeHide) options.onBeforeHide(element);
+        function doHide(){
+            let ret;
 
-        element.style.display = element._display;
+            if (options.onHide) {
+                ret = options.onHide(element);
+            }
+            if (ret !== false){
+                element.style.display = element._display;
+            }
+        }
+        
+        function next(){
+            if (options.display){
+                doHide();
+                options.display('hide', element);
+            } else if (options.animateCls) {
+                DOM(element).animate('leave', options.animateCls, {
+                    'on-complete': doHide
+                });
+            } else {
+                doHide();
+            }
+        }
 
-        if (options.display){
-            options.display('hide', element);
-        } else if (options.animateCls) {
-            DOM(element).animate('leave', options.animateCls, {
-                complete: options.onHide
-            });
+        if (options.onBeforeHide) {
+            options.onBeforeHide(element, next);
+        } else {
+            next();
         }
 
     }
@@ -148,7 +170,7 @@ Action.register('keydown', '*', (event) => {
         element = activePopups[activePopups.length - 1];
         options = element ? element._popup : null;
 
-        if (options && options.cancelClose) {
+        if (options && options.closeEsc) {
             return PopupManager.hide(element);
         }
     }
@@ -166,7 +188,7 @@ Action.register('mousedown', '*', (event) => {
         activePopups.forEach(el => {
             options = el ? el._popup : null;
 
-            if (options && options.modal) {
+            if (options && options.closeOut) {
                 if (options.parentModal && targetIs(event.target, options.parentModal)) return;
                 a.push(el);
             }
@@ -201,18 +223,11 @@ Action.register('click', 'showPopup', (event, target, name, position) => {
         
         element.style.display = null;
 
-        PopupManager.show(element, {
-            // showClassName: 'show',
-            // animateClassName: 'au',
-            cancelClose: true,
-            modal: true, // fecha com click fora do popup
-            // parentModal: element,
-            // onShow: callback,
+        PopupManager.show(element, Object.assign(DEFAULT_OPTIONS, {
             onHide: () => {
-                // this.element.classList.remove('ui-menu-show');
                 element.style.display = 'none';
             }
-        });
+        }));
     }
 });
 

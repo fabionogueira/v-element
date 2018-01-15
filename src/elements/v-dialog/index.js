@@ -1,130 +1,111 @@
 import Vue from 'vue';
-import iconManager from '@/core/icon-manager';
-import action from '@/core/action';
 import theme from '@/core/theme';
 import PopupManager from '@/core/popup-manager';
 import DOM from '@/core/dom';
 
-// const beautify = require('js-beautify').js_beautify;
-
+import './action';
 import './index.css';
 
-const dialogCloseIconName = 'dialog-close';
 const DEFAULT_OPTIONS = {
-    showClose: true,
-    autoClose: true,
-    onClose: null,
-    modal: false
+    closeButton: true,
+    closeEsc: true,
+    closeBack: true,
+    closeOut: false,
+    modal: false,
+    onClose: null
 };
 
-if (!theme.iconIsRegistered(dialogCloseIconName)){
-    iconManager.register(dialogCloseIconName, {
-        viewBox: '0 0 24 24',
-        content: '<path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />'
-    });
-}
-
-function getVueMenuInstance(value){
-    let menu = document.querySelector(`[name=${value}]`);
-
-    if (menu && menu.__vue__ && menu.__vue__.show){
-        return menu.__vue__;
-    }
-}
+theme.registerIcon('dialog-close', {
+    viewBox: '0 0 24 24',
+    content: '<path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />'
+});
 
 Vue.component('v-dialog', {
-    template: `<div class="v-element v-vbox v-dialog themable">
-                    <div @click="hide()"></div>
-                    <slot></slot>
-               </div>`,
-    
+    template: require('./index.html'),
+    props:{
+        modal: true
+    },
+    mounted(){
+        let el = this.$el;
+
+        el.children[0].setAttribute('style', el.getAttribute('style'));
+        el.removeAttribute('style');
+        el.setAttribute('style', 'display:none');
+    },
     destroyed(){
         DOM(this.$el).remove();
     },
     methods:{
-        click(event){
-            let el = DOM(event.target).closest('v-menu-item');
-            
-            if (el && !el.getAttribute('disabled') && !el.childMenuIsVisible){
-                this.$emit('item-click', { value: el.getAttribute('value') });
-                this.hide();
-            }
+        isVisible(){
+            return this.$el._show === true;
         },
         show(options){
-            if (this._show){
+            let me = this;
+
+            if (this.$el._show){
                 return;
             }
 
             options = Object.assign({}, DEFAULT_OPTIONS, options);
 
-            this._show = true;
+            this.$el._show = true;
 
-            if (!this.__init){
-                this.__init = true;
-                this.$el.children[0].appendChild(iconManager.svg(dialogCloseIconName, 'v-dialog-close-button'));
-                this.$el.modalbg = document.createElement('div');
-                this.$el.modalbg.setAttribute('class', 'v-dialog-modal-background');
-            }
-
-            // exibe/oculta o botão "fechar"
+            // closeButton: exibe/oculta o botão "fechar"
             this.$el.classList.remove('v-dialog-with-close-button');
-            if (options.showClose) this.$el.classList.add('v-dialog-with-close-button');
+            if (options.closeButton) this.$el.classList.add('v-dialog-with-close-button');
 
-            // exibe/oculta o background modal
-            if (options.modal){
-                document.body.appendChild(this.$el.modalbg);
-                DOM(this.$el.modalbg).animate('enter', 'fade');
+            // modal: exibe/oculta o background modal
+            this.$el.classList.remove('modal');
+            if (options.modal || this.modal){
+                this.$el.classList.add('modal');
             }
             
             // exibe
             PopupManager.show(this.$el, {
-                cancelClose: options.autoClose,
-                modal: false, // fecha com click fora do popup
+                closeEsc: options.closeEsc,
+                closeBack: options.closeBack,
+                closeOut: options.closeOut,
                 rectBase:{
                     target: options.reference,
                     position: options.position || 'in-left|bottom in-right|top'
                 },
                 offsetY: options.offsetY || 0,
                 offsetX: options.offsetX || 0,
-                animateCls: 'fade',
-                onHide: options.onHide,
-                onShow: options.onShow,
-                onBeforeHide(element){ 
-                    DOM(element).animate('leave', 'fade');
+                animateCls: 'dialog',
+                onBeforeShow(element){
+                    element.style.display = 'block';
+                },
+                onShow(element){
+                    me.$emit('show');
+                    if (options.onShow) options.onShow(element);
+                },
+                onHide(element){
+                    element._show = false;
+                    element.style.display = 'none';
+                    
+                    if (options.onHide) {
+                        options.onHide(element);
+                    }
+
+                    return false;
                 }
             });
         },
         hide(){
-            if (!this._show){
-                return;
+            if (this.$el._show){
+                if (this._events.hide){
+                    this.$emit('hide', () => {
+                        PopupManager.hide(this.$el);
+                    });
+                } else {
+                    PopupManager.hide(this.$el);
+                }
             }
-
-            this._show = false;
-
-            PopupManager.hide(this.$el);
         }
     }
     
-});
-
-// <element action="modal:modal1"></element>
-action.register('mousedown', 'modal', (event, target, value) => {
-    let modal = getVueMenuInstance(value);
-    
-    function show(){
-        modal.show({reference:target});
-    }
-
-    if (modal){
-        
-        if (modal._show){
-            modal.hide();
-            setTimeout(function(){ show(); }, 20);
-        } else {
-            show();
-        }
-    }
-
 });
 
 Vue.config.ignoredElements.push('v-dialog-header');
+Vue.config.ignoredElements.push('v-dialog-body');
+Vue.config.ignoredElements.push('v-dialog-footer');
