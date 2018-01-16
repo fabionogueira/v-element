@@ -3,7 +3,7 @@
         
         <v-button action="modal:modal1">show modal</v-button>
 
-        <v-dialog name="modal1" :modal="false" @hide="onHide" style="width:400px; height:300px">
+        <v-dialog name="modal1" :modal="true" @hide="onHide" style="width:400px; height:300px">
             <v-dialog-header>
                 Simple Dialog
             </v-dialog-header>
@@ -11,9 +11,15 @@
                 This is a message
             </v-dialog-body>
             <v-dialog-footer>
-                <v-button action="dialog-close">Cancel</v-button>
-                <v-button action="dialog-close" class="v-button--primary">Confirm</v-button>
+                <v-button action="modal:modal2" >Open</v-button>
+                <v-button action="dialog-close" class="v-button--primary">Close</v-button>
             </v-dialog-footer>
+        </v-dialog>
+
+        <v-dialog name="modal2" :modal="false" style="width:300px; height:200px; top:140px">
+            <v-dialog-header>
+                Simple Dialog 2
+            </v-dialog-header>
         </v-dialog>
 
     </demo-container>

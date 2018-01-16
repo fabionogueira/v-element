@@ -8,7 +8,6 @@
     right: 0;
     bottom: 0;
     z-index: 5000;
-    background: rgba(33, 33, 33, 0.39);
 }
 .v-dialog.modal{
     background: rgba(33, 33, 33, 0.39);

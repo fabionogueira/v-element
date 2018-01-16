@@ -1,6 +1,7 @@
 /* eslint new-cap:off */
 
 import Vue from 'vue';
+import DOM from './dom';
 // import Dialog from '../elements/v-dialog';
 
 let instances = [];
@@ -113,14 +114,18 @@ export default {
         instance.setTitle(options.title);
         instance.setText(options.text);
 
-        options.onHide = function(){
-            if (onHide) onHide(instance.dialog.$$button);
+        options.onHide = function(element){
+            DOM(element).remove();
+            if (onHide) {
+                onHide(instance.dialog.$$button);
+            }
         };
 
         instance.dialog.$$button = -1;
         instance.dialog.show(options);
     },
     confirm(options){
+        options = options || {};
         options.buttons = options.buttons || [
             {
                 text: 'Cancel'
@@ -133,8 +138,19 @@ export default {
 
         this.alert(options);
     },
-    prompt(){
+    prompt(options){
+        options = options || {};
+        options.buttons = options.buttons || [
+            {
+                text: 'Cancel'
+            },
+            {
+                default: true,
+                text: 'OK'
+            }
+        ];
 
+        this.alert(options);
     }
 };
 
