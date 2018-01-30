@@ -3,17 +3,18 @@
 import Vue from 'vue';
 import App from './app';
 import router from './routers';
-import VElement from '@/index';
-// import store from '@/global';
+import VElement from '../src/index';
+
+import 'color/themes/test.css';
 
 // tema do highlight.js
 import 'highlight.js/styles/railscasts.css';
-import '@/themes/default';
 
 // importação do tema e dos componentes que serão usados na aplicação
-import '@/elements/v-button';
-import '@/elements/v-menu';
-import '@/elements/v-dialog';
+import '../src/themes/default';
+import '../src/elements/v-button';
+import '../src/elements/v-menu';
+import '../src/elements/v-dialog';
 
 import './elements/demo-container';
 // import theme from './ui-vue/themes/default'

@@ -1,8 +1,12 @@
 {
   "name": "v-element",
-  "version": "0.0.1",
-  "description": "A Vue.js project",
+  "version": "0.0.2",
+  "description": "Vue.js UI Elements",
   "author": "fabionogueira <fabio.bacabal@gmail.com>",
+  "main": "src/index.js",
+  "files": [
+    "src/"
+  ],
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
@@ -14,9 +18,7 @@
   },
   "dependencies": {
     "browser-back-button": "^0.2.0",
-    "vue": "^2.4.2",
-    "vue-router": "^2.7.0",
-    "vuex": "^2.4.0"
+    "vue": "^2.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -80,6 +82,8 @@
     "sinon-chai": "^2.8.0",
     "text-loader": "0.0.1",
     "url-loader": "^0.5.8",
+    "vue-router": "^2.7.0",
+    "vuex": "^2.4.0",
     "vue-loader": "^13.0.4",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.4.2",
